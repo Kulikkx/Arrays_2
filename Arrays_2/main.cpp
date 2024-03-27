@@ -1,11 +1,19 @@
-# include <iostream>
+ï»¿# include <iostream>
 using namespace std;
 
 #define tab "\t";
 void FillRand(int arr[], const int n, int minRand = 0, int maxRand = 100);
+void FillRand(double arr[], const int n, int minRand = 0, int maxRand = 100);
+
 void Print(const int arr[], const int n);
+void Print(const double arr[], const int n);
+
 int Sum(const int arr[], const int n);
 double Avg(const int arr[], const int n);
+
+int minValueIn(const int arr[], const int n);
+int maxValueIn(const int arr[], const int n);
+
 void main()
 {
 	setlocale(LC_ALL, "");
@@ -15,17 +23,23 @@ void main()
 	/* int minRand, maxRand;
 	do
 	{
-		cout << "Ââåäèòå ìèíèìàëüíîå âîçìîæíîå ñëó÷àéíîå ÷èñëî"; cin >> minRand;
-		cout << "Ââåäèòå ìàêñèìàëüíîå âîçìîæíîå ñëó÷àéíîå ÷èñëî"; cin >> maxRand;
-		if (minRand == maxRand)cout << "Ïðåäåëû äèàïàçîíà íå äîëæíû ñîâïàäàòü" << endl;
+		cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¼Ð¸Ð½Ð¸Ð¼Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾Ðµ ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾"; cin >> minRand;
+		cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¼Ð°ÐºÑÐ¸Ð¼Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾Ðµ ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ð¾Ðµ Ñ‡Ð¸ÑÐ»Ð¾"; cin >> maxRand;
+		if (minRand == maxRand)cout << "ÐŸÑ€ÐµÐ´ÐµÐ»Ñ‹ Ð´Ð¸Ð°Ð¿Ð°Ð·Ð¾Ð½Ð° Ð½Ðµ Ð´Ð¾Ð»Ð¶Ð½Ñ‹ ÑÐ¾Ð²Ð¿Ð°Ð´Ð°Ñ‚ÑŒ" << endl;
 	} while (minRand == maxRand);*/
 
 	FillRand(arr, n);
-	//Âûâîä ìàññèâà íà ýêðàí;
+	//Ð’Ñ‹Ð²Ð¾Ð´ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð½Ð° ÑÐºÑ€Ð°Ð½;
 	Print(arr, n);
-	cout << "Ñóììà ýëåìåíòîâ ìàññèâà: " << Sum(arr, n) << endl;
-	cout << "Ñðåäíå-àðèôìåòè÷åñêîå ýëåìåíòîâ ìàññèâà: " << Avg(arr, n) << endl;
+	cout << "Ð¡ÑƒÐ¼Ð¼Ð° ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² Ð¼Ð°ÑÑÐ¸Ð²Ð°: " << Sum(arr, n) << endl;
+	cout << "Ð¡Ñ€ÐµÐ´Ð½Ðµ-Ð°Ñ€Ð¸Ñ„Ð¼ÐµÑ‚Ð¸Ñ‡ÐµÑÐºÐ¾Ðµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð¾Ð² Ð¼Ð°ÑÑÐ¸Ð²Ð°: " << Avg(arr, n) << endl;
+	cout << "ÐœÐ¸Ð½Ð¸Ð¼Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð² Ð¼Ð°ÑÑÐ¸Ð²Ðµ: " << minValueIn(arr, n) << endl;
+	cout << "ÐœÐ°ÐºÑÐ¸Ð¼Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð² Ð¼Ð°ÑÑÐ¸Ð²Ðµ: " << maxValueIn(arr, n) << endl;
 
+	const int m = 8;
+	double d_arr[m];
+	FillRand(d_arr, m);
+	Print(d_arr, m);
 }
 void FillRand(int arr[], const int n, int minRand, int maxRand)
 {
@@ -35,13 +49,39 @@ void FillRand(int arr[], const int n, int minRand, int maxRand)
 		minRand = maxRand;
 		maxRand = buffer;
 	}
-	//Çàïîëíåíèå ìàññèâà ñëó÷àéíûìè ÷èñëàìè
+	//Ð—Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ Ð¼Ð°ÑÑÐ¸Ð²Ð° ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ñ‹Ð¼Ð¸ Ñ‡Ð¸ÑÐ»Ð°Ð¼Ð¸
 	for (int i = 0; i < n; i++)
 	{
 		arr[i] = minRand + rand() % (maxRand - minRand);
 	}
 }
+void FillRand(double arr[], const int n, int minRand, int maxRand)
+{
+	if (maxRand < minRand)
+	{
+		int buffer = minRand;
+		minRand = maxRand;
+		maxRand = buffer;
+	}
+	minRand *= 100;
+	maxRand *= 100;
+	//Ð—Ð°Ð¿Ð¾Ð»Ð½ÐµÐ½Ð¸Ðµ Ð¼Ð°ÑÑÐ¸Ð²Ð° ÑÐ»ÑƒÑ‡Ð°Ð¹Ð½Ñ‹Ð¼Ð¸ Ñ‡Ð¸ÑÐ»Ð°Ð¼Ð¸
+	for (int i = 0; i < n; i++)
+	{
+		arr[i] = minRand + rand() % (maxRand - minRand);
+		arr[i] /= 100;
+	}
+}
+
 void Print(const int arr[], const int n)
+{
+	for (int i = 0; i < n; i++)
+	{
+		cout << arr[i] << tab;
+	}
+	cout << endl;
+}
+void Print( const double arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
 	{
@@ -61,4 +101,22 @@ int Sum(const int arr[], const int n)
 double Avg(const int arr[], const int n)
 {
 	return (double)Sum(arr, n) / n;
+}
+int minValueIn(const int arr[], const int n)
+{
+	int min = arr[0];
+	for (int i = 0; i < n; i++)
+	{
+		if (arr[i] < min)min = arr[i];
+	}
+	return min;
+}
+int maxValueIn(const int arr[], const int n)
+{
+	int max = arr[0];
+	for (int i = 0; i < n; i++)
+	{
+		if (arr[i] > max)max = arr[i];
+	}
+	return max;
 }
