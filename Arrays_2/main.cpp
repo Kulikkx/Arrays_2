@@ -7,8 +7,10 @@ void FillRand(double arr[], const int n, int minRand = 0, int maxRand = 100);
 
 void Print(const int arr[], const int n);
 void Print(const double arr[], const int n);
+void Print(const double arr[ROWS][COLS], const int ROWS, const int COLS);
 
 int Sum(const int arr[], const int n);
+int Sum(const int arr[ROWS][COLS], const int ROWS, const int COLS);
 double Avg(const int arr[], const int n);
 
 int minValueIn(const int arr[], const int n);
@@ -53,6 +55,9 @@ void FillRand(int arr[], const int n, int minRand, int maxRand)
 	for (int i = 0; i < n; i++)
 	{
 		arr[i] = minRand + rand() % (maxRand - minRand);
+		// arr[i]=50+rand() %50;
+		//Функция rand() генерирует псевдослучайное число в диапазоне от 0 до 32767 (RAND_MAX)
+		// Это псевдослучайное число можно вывести на экран, сохранить в пременную,или элемент массива.
 	}
 }
 void FillRand(double arr[], const int n, int minRand, int maxRand)
@@ -63,16 +68,17 @@ void FillRand(double arr[], const int n, int minRand, int maxRand)
 		minRand = maxRand;
 		maxRand = buffer;
 	}
+	//Заполнение массива случайными числами:
 	minRand *= 100;
 	maxRand *= 100;
-	//Заполнение массива случайными числами
 	for (int i = 0; i < n; i++)
 	{
 		arr[i] = minRand + rand() % (maxRand - minRand);
 		arr[i] /= 100;
+	
 	}
 }
-
+//Вывод массива на экран
 void Print(const int arr[], const int n)
 {
 	for (int i = 0; i < n; i++)
@@ -81,9 +87,10 @@ void Print(const int arr[], const int n)
 	}
 	cout << endl;
 }
-void Print( const double arr[], const int n)
+void Print(const double arr[], const int n)
 {
-	for (int i = 0; i < n; i++)
+	//Вывод массива на экран
+	for (int i = 0; i < n; i++) 
 	{
 		cout << arr[i] << tab;
 	}
@@ -98,6 +105,15 @@ int Sum(const int arr[], const int n)
 	}
 	return sum;
 }
+int Sum(const int arr[ROWS][COLS], const int ROWS, const int COLS)
+{
+	int sum = 0;
+	for (int i = 0; i < ROWS; i++)
+	{
+		for(int j)
+	}
+}
+
 double Avg(const int arr[], const int n)
 {
 	return (double)Sum(arr, n) / n;
